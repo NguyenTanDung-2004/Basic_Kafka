@@ -11,5 +11,5 @@
 * application.yaml
 * EmailService.java
 # Thank you!
-*I want to say **Thanks To You** for visiting my mini project!*
+*I want to say **Thank To You** for visiting my mini project!*
 
