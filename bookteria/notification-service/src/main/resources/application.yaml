@@ -1,0 +1,21 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /notification
+spring:
+  application:
+    name: notification-service
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/notification-service?authSource=admin
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification-group # this is Consumer Group. Scenario: we set notification-group and we publish 3 message, the consumer consume all message.
+                                    # if we change the value to notification-group1, we can see these 3 messages log to the console.
+                                    # Explain for this: consumer group1 (notification-group) subscribe this kafka on 1 topic to handle 1 logic (example: sending email).
+                                    #                   consumer group2 (notification-group1) subscribe this kafka on this topic to handle another logic (example: store and analysis user interact).
+                                    #                   So consumer group2 need to read all data in this topic to handle, this is why these 3 messages log to the console.
+      auto-offset-reset: earliest # lastest (consumer read from lastest message), none
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
